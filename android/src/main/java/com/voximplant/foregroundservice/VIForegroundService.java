@@ -45,13 +45,11 @@ public class VIForegroundService extends Service {
             }
         }
         return START_NOT_STICKY;
-
     }
-    
+
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        stopSelf();
+    public void onTaskRemoved(Intent rootIntent) {
+        super.onTaskRemoved(rootIntent);
         android.os.Process.killProcess(android.os.Process.myPid());
     }
 }
