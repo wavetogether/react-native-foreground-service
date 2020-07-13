@@ -4,11 +4,18 @@
 
 package com.voximplant.foregroundservice;
 
+import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
+
+import java.util.List;
 
 import static com.voximplant.foregroundservice.Constants.NOTIFICATION_CONFIG;
 
@@ -39,5 +46,12 @@ public class VIForegroundService extends Service {
         }
         return START_NOT_STICKY;
 
+    }
+    
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        stopSelf();
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 }
